@@ -1,4 +1,6 @@
-const { selectAllProjetsFromDataBase } = require('../models/projetModel')
+const { selectAllProjetsFromDataBase,
+        selectProjetWhereIdFromDataBase
+     } = require('../models/projetModel')
 
 async function getAllProjets(req, res) {
     try {
@@ -7,10 +9,22 @@ async function getAllProjets(req, res) {
         res.end(JSON.stringify(projets));
     } catch (error) {
         console.error(error);
-        res.end('Route Not Found');
+        res.end('Data Not Found');
     }
 } 
 
+async function getProjetById(req, res, projectId) {
+    try {
+        const projet = await selectProjetWhereIdFromDataBase(projectId)
+        res.writeHead(200, { 'Content-type': 'application/json' });
+        res.end(JSON.stringify(projet));
+    } catch (error) {
+        console.error(error);
+        res.end('Data Not Found');
+    }
+}
+
 module.exports = {
-    getAllProjets
+    getAllProjets,
+    getProjetById
 }

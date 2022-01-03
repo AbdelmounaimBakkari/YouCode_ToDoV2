@@ -10,14 +10,17 @@ function selectAllProjetsFromDataBase(){
     })
 }
 
-// mydb.connect(function(err) {
-//     if (err) throw err;
-//     mydb.query("SELECT * FROM projets", function (err, result, fields) {
-//       if (err) throw err;
-//       console.log(result);
-//     });
-// });
+function selectProjetWhereIdFromDataBase(projetId){
+    return new Promise((resolve, reject) => {
+        let q = `SELECT * FROM projets WHERE id = ${projetId}`;
+        mydb.query(q, (err, result) => {
+            if(err) throw err;
+            resolve(result);
+        })
+    })
+}
 
 module.exports = {
-    selectAllProjetsFromDataBase
+    selectAllProjetsFromDataBase,
+    selectProjetWhereIdFromDataBase
 }

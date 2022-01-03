@@ -1,4 +1,8 @@
-const { getAllProjets } = require('./controllers/projetController')
+const { getAllProjets,
+        getProjetById
+    } = require('./controllers/projetController')
+
+
 function routing(req, res){
     
 const myURL = req.url.split('/');
@@ -13,8 +17,7 @@ let id = parseInt(myURL[2]);
             }else if(myURL[1] === 'projets' && (myURL.length == 2 || myURL.length == 3 && myURL[2] == '')){
                 getAllProjets(req, res);
             }else if(myURL[1] === 'projets' && Number.isInteger(id) && ((myURL.length == 3 ) || (myURL.length == 4 && myURL[3] == ''))) {
-                res.writeHead(200, { 'Content-type': 'application/json' });
-                res.end(JSON.stringify({ info: 'You Are In projet by Id Route.'}));
+                getProjetById(req, res, id);
             }else if(myURL[1] === 'projets' && myURL[2] === 'tasks' && myURL.length == 3) {
                 res.writeHead(200, { 'Content-type': 'application/json' });
                 res.end(JSON.stringify({ info: 'You Are In tasks Route'}));
