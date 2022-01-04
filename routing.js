@@ -1,5 +1,6 @@
 const { getAllProjets,
-        getProjetById
+        getProjetById,
+        createProjet
     } = require('./controllers/projetController')
 
 
@@ -26,8 +27,14 @@ let id = parseInt(myURL[2]);
                 res.end(JSON.stringify({ Error: 'Route Not Found' }));
             }
 
-            
-            
+            break;
+        case 'POST':
+            if(myURL[1] === 'projets' && myURL[2] === 'create') {
+                // res.writeHead(200, { 'Content-type': 'application/json' });
+                // res.end(JSON.stringify({ Info: 'Tous Va Bien' }));
+                createProjet(req, res);
+            }
+
             break;
     
         default:
